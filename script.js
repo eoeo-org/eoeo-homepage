@@ -1,113 +1,40 @@
 const jText = document.getElementById("jText")
 
-const textFrames = [
-    {
-        "type": "text",
-        "text": "j"
-    },
-    {
-        "type": "text",
-        "text": "j-"
-    },
-    {
-        "type": "text",
-        "text": "j-e"
-    },
-    {
-        "type": "text",
-        "text": "j-eo"
-    },
-    {
-        "type": "text",
-        "text": "j-eoe"
-    },
-    {
-        "type": "text",
-        "text": "j-eoeo"
-    },
-    
-    {
-        "type": "wait",
-        "wait": 1500
-    },
+let texts = [
+    'j-eoeo',
+    'jjjj',
+    'jenkins',
+    'jello jorld',
+    'jazujazu123123',
+    'j eoeo is powered by tty7.uk'
+];
 
-    {
-        "type": "text",
-        "text": "j-eoe"
-    },
-    {
-        "type": "text",
-        "text": "j-eo"
-    },
-    {
-        "type": "text",
-        "text": "j-e"
-    },
-    {
-        "type": "text",
-        "text": "j-"
-    },
-    {
-        "type": "text",
-        "text": "j"
-    },
+function getRandomText(texts) {
+    const randomIndex = Math.floor(Math.random() * texts.length);
+    return texts[randomIndex];
+}
 
-    {
-        "type": "wait",
-        "wait": 1500
-    },
+function getRandomTime(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
-    {
-        "type": "text",
-        "text": "jj"
-    },
-    {
-        "type": "text",
-        "text": "jjj"
-    },
-    {
-        "type": "text",
-        "text": "jjjj"
-    },
-
-    {
-        "type": "wait",
-        "wait": 1500
-    },
-
-    {
-        "type": "text",
-        "text": "jjj"
-    },
-    {
-        "type": "text",
-        "text": "jj"
-    },
-    {
-        "type": "text",
-        "text": "j"
-    },
-
-    {
-        "type": "wait",
-        "wait": 1500
-    }
-]
-
-async function runTextFrames(textFrames) {
+async function runRandomTextFrames() {
     while (true) {
-        for (const frame of textFrames) {
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            if (frame.type === 'text') {
-                //console.log(frame.text); 
-                jText.innerHTML = frame.text;
-                document.title = frame.text;
-            } else if (frame.type === 'wait') {
-                await new Promise(resolve => setTimeout(resolve, frame.wait));
-            }
+        jText.innerHTML = '';
+        const text = getRandomText(texts);
+        for (const char of text) {
+            jText.innerHTML += char;
+            await new Promise(resolve => setTimeout(resolve, getRandomTime(100, 500)));
         }
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        for (let i = text.length; i >= 0; i--) {
+            jText.innerHTML = text.substring(0, i) || 'j';
+            await new Promise(resolve => setTimeout(resolve, getRandomTime(100, 500)));
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
 }
 
-runTextFrames(textFrames);
+runRandomTextFrames();
