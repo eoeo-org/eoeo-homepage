@@ -28,7 +28,7 @@ async function runRandomTextFrames() {
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         for (let i = text.length; i >= 0; i--) {
-            eoeoText.innerHTML = text.substring(0, i) || 'j';
+            eoeoText.innerHTML = text.substring(0, i) || 'e';
             await new Promise(resolve => setTimeout(resolve, getRandomTime(100, 500)));
         }
 
